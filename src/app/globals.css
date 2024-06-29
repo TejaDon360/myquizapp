@@ -2,32 +2,98 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+[data-theme="light"] body {
+  overflow: hidden;
+  color: #282828;
+  background-color: #f0f0f0;
+  --background: rgb(31, 31, 31);
+  --primary: rgb(82, 148, 255);
+  --secondary: rgb(252, 252, 252);
+  --accent: rgb(243, 243, 243);
+  --tertiary: rgb(238, 238, 238);
 }
 
-@media (prefers-color-scheme: dark) {
+body {
+  overflow: hidden;
+  background-color: rgb(41, 41, 41);
+  color: #fff;
+  --background: rgb(31, 31, 31);
+  --primary: rgb(69, 98, 244);
+  --secondary: rgb(57, 57, 57);
+  --accent: rgb(30, 30, 30);
+  --tertiary: rgb(40, 40, 40);
+}
+
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+} */
+
+.prompt {
+  background-color: var(--secondary);
+  box-shadow: 0 0 10px var(--accent);
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.input {
+  color: var(--color);
+  background-color: var(--tertiary);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.start_quizBtn {
+  color: var(--color);
+  width: 100%;
+  background-color: var(--primary);
+}
+
+.disabled {
+  color: white;
+  background-color: var(--accent);
+  width: 100%;
+}
+
+/* styling of quiz page  */
+.heading {
+  font-size: 35px;
+
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: var(--color);
+  background-color: var(--secondary);
+}
+
+.quiz_holder > div {
+  border-radius: 5px;
+  background-color: var(--secondary);
+  box-shadow: 0 0 5px var(--accent);
+}
+
+.options {
+  background-color: var(--tertiary);
+  width: 100%;
+  border-radius: 5px;
+}
+
+.btn {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.hidden {
+  display: none;
+}
+
+.result {
+  color: var(--color);
+}
+
+.leaderboard,
+.details {
+  background-color: var(--secondary);
+}
+
+.line {
+  border-color: var(--color);
 }
