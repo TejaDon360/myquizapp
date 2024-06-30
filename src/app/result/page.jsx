@@ -4,7 +4,8 @@ import Providers from "../../../components/themeProvider";
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import { useWindowSize } from "../../../components/windowSize";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "../../../utils/supabase.mjs";
 
 const Result_mobileUI = ({ result, username, category, showResult, score }) => {
   const reStart = () => {
@@ -143,7 +144,19 @@ const Result_lapUI = ({ result, username, category, setActive, showResult, score
 
 const Result = ({ result, username, category, setActive, showResult, score }) => {
   let size = useWindowSize();
-  
+  useEffect(() => {
+    const random = (min, max) => Math.round((max - min) * Math.random() + min);
+    async function submitUser() {
+      const { error } = await supabase.from("Users").insert({
+        id: random(10, 10000),
+        Json: { username: username, category: category, score: score },
+      });
+      console.log(error);
+    }
+    return () => {
+      submitUser();
+    };
+  }, [username, category, score]);
 
   return (
     <>

@@ -44,7 +44,9 @@ export default function UserPrompt() {
 
           <button
             className={username.length >= 5 ? "start_quizBtn p-3 mt-5 rounded-md" : "disabled p-3 mt-5 rounded-md"}
-            onClick={() => submitNameAndCategory(name, category)}
+            onClick={() =>
+              (username.length >= 5) ? submitNameAndCategory(name, category) : console.log("enter username")
+            }
           >
             Start Quiz
           </button>

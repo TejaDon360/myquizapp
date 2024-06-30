@@ -10,25 +10,19 @@ import Questions from "../../../components/questions";
 
 import { questions } from "../../../components/questions";
 import Result from "../result/page";
-import { supabase } from "../../../utils/supabase.mjs";
 
+
+import { useRouter } from "next/navigation";
 export default function QuiArea() {
   let { username, category } = useContext(AppContext);
-  const [score, setScore] = useState(0);
+  const { score, setScore } = useContext(AppContext);
   let size = useWindowSize();
   const [index, setIndex] = useState(0);
   const [answer, setAns] = useState("");
   const [result, showResult] = useState(false);
-  const random = (min, max) => Math.round((max - min) * Math.random() + min);
-  async function submitUser() {
-    if (answer == questions[index].answer) {
-      setScore(score + 1);
-    }
-    const { error } = await supabase.from("Users").insert({
-      id: random(10, 10000),
-      Json: { username: username, category: category, score: score },
-    });
-    console.log(error);
+  const router = useRouter();
+  if (username == " " || username == false) {
+    router.push("/");
   }
 
   if (index > 9) {
@@ -42,7 +36,7 @@ export default function QuiArea() {
       }
 
       showResult(true);
-      submitUser();
+      //submitUser();
     }
   };
 

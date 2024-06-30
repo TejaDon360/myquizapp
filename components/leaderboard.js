@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase.mjs";
-let usersq = [];
+
 export default function Leaderboard() {
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -10,25 +10,32 @@ export default function Leaderboard() {
         setData(users);
       } catch (err) {}
     };
-    fetchData();
+    return () => {
+      fetchData();
+    };
   }, []);
-
+  let usersq = new Set();
   data.forEach((user) => {
-    if (!usersq.includes(user.Json)) {
-      usersq.push(user.Json);
-    }
+    usersq.add(user.Json);
   });
 
-  usersq = usersq.sort((a, b) => b.score - a.score);
-
-  const leaderboard = usersq.map((val, i) => (
-    <tr key={i}>
-      <td>{i + 1}</td>
-      <td>{val.username}</td>
-      <td>{val.score}</td>
-      <td>{val.category}</td>
-    </tr>
-  ));
+  let users = [];
+  usersq.values().forEach((val) => {
+    users.push(val);
+  });
+  users = users.sort((a, b) => b.score - a.score);
+  const leaderboard = users.map((val, i) =>
+    i < 6 ? (
+      <tr key={i}>
+        <td>{i + 1}</td>
+        <td>{val.username}</td>
+        <td>{val.score}</td>
+        <td>{val.category}</td>
+      </tr>
+    ) : (
+      <></>
+    )
+  );
 
   return <>{leaderboard}</>;
 }
