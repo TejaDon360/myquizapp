@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import React from "react";
 import { Button } from "@nextui-org/button";
-import { MoonIcon } from "../../public/moonIcon";
-import { SunIcon } from "../../public/sunIcon";
+import { MoonIcon } from "../public/moonIcon";
+import { SunIcon } from "../public/sunIcon";
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);

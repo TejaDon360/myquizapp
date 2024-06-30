@@ -3,7 +3,7 @@
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useRouter } from "next/navigation";
-import Providers from "../themeProvider";
+import Providers from "../../../components/themeProvider";
 export default function UserPrompt() {
   let router = useRouter();
   const { username, setName, category, setCat } = useContext(AppContext);

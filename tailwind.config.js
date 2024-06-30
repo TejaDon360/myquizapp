@@ -4,8 +4,9 @@ module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/*.js",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(button|radio|ripple|spinner).js"
+    "./node_modules/@nextui-org/theme/dist/components/(button|radio|tabs|ripple|spinner).js"
   ],
   theme: {
     extend: {

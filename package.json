@@ -12,6 +12,7 @@
     "@nextui-org/button": "^2.0.34",
     "@nextui-org/radio": "^2.1.2",
     "@nextui-org/system": "^2.2.2",
+    "@nextui-org/tabs": "^2.0.32",
     "@nextui-org/theme": "^2.2.6",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.2",
