@@ -21,19 +21,26 @@ export default function Leaderboard() {
 
   let users = [];
   usersq.values().forEach((val) => {
-    users.push(val);
+    users.unshift(val);
   });
   users = users.sort((a, b) => b.score - a.score);
   const leaderboard = users.map((val, i) =>
-    i < 6 ? (
+    i < 3 ? (
       <tr key={i}>
-        <td>{i + 1}</td>
+        <td className="text-yellow-300 text-2xl">{i + 1}</td>
         <td>{val.username}</td>
         <td>{val.score}</td>
         <td>{val.category}</td>
       </tr>
     ) : (
-      <></>
+      i < 6? (
+        <tr key={i}>
+        <td className="text-2xl">{i + 1}</td>
+        <td>{val.username}</td>
+        <td>{val.score}</td>
+        <td>{val.category}</td>
+      </tr>
+      ) : <></>
     )
   );
 

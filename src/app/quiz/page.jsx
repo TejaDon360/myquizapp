@@ -1,18 +1,19 @@
 "use client";
 
-import { use, useContext, useState } from "react";
-import { AppContext } from "../../context/AppContext";
-import { useWindowSize } from "../../../components/windowSize";
-import Providers from "../../../components/themeProvider";
-import ThemeSwitcher from "../../../components/themeSwitcher";
-import Leaderboard from "../../../components/leaderboard";
-import Questions from "../../../components/questions";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AppContext } from "/src/context/AppContext";
+import { useWindowSize } from "/components/windowSize";
+import Providers from "/components/themeProvider";
+import ThemeSwitcher from "/components/themeSwitcher";
+import Leaderboard from "/components/leaderboard";
+import Questions from "/components/questions";
 
-import { questions } from "../../../components/questions";
-import Result from "../result/page";
-
+import { questions } from "/components/questions";
+import Result from "/src/app/result/page";
+import Logo from "/components/logo";
 
 import { useRouter } from "next/navigation";
+
 export default function QuiArea() {
   let { username, category } = useContext(AppContext);
   const { score, setScore } = useContext(AppContext);
@@ -21,6 +22,22 @@ export default function QuiArea() {
   const [answer, setAns] = useState("");
   const [result, showResult] = useState(false);
   const router = useRouter();
+  let timer = 5;
+  const [time, setTime] = useState(timer);
+
+  useEffect(() => {
+    if (time <= 0) return;
+    const timeInterval = setInterval(() => {
+      if (time > 0) {
+        setTime(time - 1);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(timeInterval);
+    };
+  }, [time]);
+
   if (username == " " || username == false) {
     router.push("/");
   }
@@ -29,15 +46,16 @@ export default function QuiArea() {
     setIndex(9);
   }
 
-  const submitQuiz = (u, c, s) => {
+  const submitQuiz = () => {
     if (questions[index]) {
       if (answer == questions[index].answer) {
         setScore(score + 1);
       }
 
-      showResult(true);
       //submitUser();
     }
+    showResult(true);
+    setTime(-10);
   };
 
   const checkAnswer = () => {
@@ -50,20 +68,32 @@ export default function QuiArea() {
         setIndex(index + 1);
       }
     }
+    setTime(timer);
   };
+
+  if (time == 0) {
+    if (index == 9) {
+      setTime(-10);
+    //  submitQuiz();
+      setIndex(0);
+    }
+    checkAnswer();
+  }
 
   return (
     <>
       <>
-        <div className={result ? "hidden" : ""}>
+        <div className={result ? "hidden" : "overlape"}>
           {size.width > 1000 ? (
             <Providers>
               <div className="flex  items-center h-screen scale-95 overflow-hidden w-screen">
                 <div className="grid grid-rows-auto grid-cols-6 gap-8 quiz_holder w-full">
                   <div className=" heading row-span-1 col-span-6 w-full max-h-20  p-3 ">
                     <div className="ml-10 grid items-center grid-cols-2">
-                      <div className="justify-self-start">Qzap </div>
-                      <div className="justify-self-end self-center">
+                      <div className="justify-self-start">Qzap</div>
+
+                      <div className="flex flex-row justify-self-end">
+                        <div className="timer w-12 h-12 rounded-full text-large font-bold mr-3">{time}</div>
                         <ThemeSwitcher />
                       </div>
                     </div>
@@ -78,7 +108,7 @@ export default function QuiArea() {
                     </div>
                   </div>
 
-                  <div className="col-start-5 row-start-5 row-span-8 col-span-2 flex  flex-col h-fit p-3 leaderboard min-w-fit">
+                  <div className="col-start-5 row-start-5 row-span-8 col-span-2 flex  flex-col h-fit leaderboard min-w-fit">
                     <h1 className="text-center text-3xl p-5 font-medium">Leaderboard</h1>
                     <table className="border-separate text-center mt-3 text-xl ">
                       <thead>
@@ -107,7 +137,7 @@ export default function QuiArea() {
                     </button>
                     <button
                       className={index == 9 ? "p-2 btn text-2xl rounded-md min-w-48 self-center mb-10" : "hidden"}
-                      onClick={() => submitQuiz(username, category, score)}
+                      onClick={() => submitQuiz()}
                     >
                       Submit
                     </button>
@@ -121,17 +151,26 @@ export default function QuiArea() {
               <div className="flex justify-center items-center overflow-hidden scale-95 h-screen">
                 <div className="grid grid-rows-auto grid-cols-6 gap-3 quiz_holder w-screen ">
                   <div className="row-span-1 col-span-6 max-h-20 heading text-2xl h-full p-3 flex flex-row items-center justify-between">
-                    Qzap
-                    <div>
+                    <div>Qzap</div>
+
+                    <div className="flex flex-row">
+                      <div className="timer w-12 h-12 rounded-full text-large font-bold mr-3">{time}</div>
                       <ThemeSwitcher />
                     </div>
                   </div>
 
                   <div className="row-span-1 row-start-2 col-start-1 col-span-6 h-fit details text-center ">
-                    <div className="grid w-full grid-cols-2 gap-2 p-3 text-large font-medium">
-                      <p>Category : {category} </p>
-                      <p>Username : {username}</p>
-                      <p>Score : {score}</p>
+                    <div className="grid w-full grid-cols-3 gap-2 p-3 text-large font-medium">
+                      <p>
+                        Category <br /> <b>{category}</b>{" "}
+                      </p>
+                      <p>
+                        Username <br />
+                        <b>{username}</b>
+                      </p>
+                      <p>
+                        Score <br /> <b>{score}</b>
+                      </p>
                     </div>
                   </div>
 
@@ -147,7 +186,7 @@ export default function QuiArea() {
                     </button>
                     <button
                       className={index == 9 ? "p-2 btn text-2xl rounded-md min-w-48 self-center mb-10" : "hidden"}
-                      onClick={() => submitQuiz(username, category, score)}
+                      onClick={() => submitQuiz()}
                     >
                       Submit
                     </button>

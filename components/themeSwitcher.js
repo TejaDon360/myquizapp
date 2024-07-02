@@ -31,7 +31,7 @@ const ThemeSwitcher = () => {
     <div>
       <Button
          isIconOnly 
-         className={"rounded-full " }
+         className={"rounded-full w-12 h-12 themeBtn" }
          
         onClick={handleTheme}
         startContent={

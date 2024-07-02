@@ -6,9 +6,12 @@ import { Button } from "@nextui-org/button";
 import { useWindowSize } from "../../../components/windowSize";
 import { useEffect, useState } from "react";
 import { supabase } from "../../../utils/supabase.mjs";
+import { useRouter } from "next/navigation";
 
 const Result_mobileUI = ({ result, username, category, showResult, score }) => {
-  const reStart = () => {
+  const ReStart = () => {
+    const router = useRouter();
+    router.push("/");
     showResult(false);
   };
 
@@ -26,16 +29,17 @@ const Result_mobileUI = ({ result, username, category, showResult, score }) => {
             onSelectionChange={setSelected}
           >
             <Tab key="photos" title="Result">
-              <div className=" scale-95 result mt-20">
-                <div className="details text-center p-12 rounded-md">
+              <div className=" scale-95 result mt-16">
+                <div className="details text-center p-10 rounded-md">
                   <h1 className="text-4xl font-medium mb-10">Your score</h1>
                   <div className="text-4xl">{score}/10</div>
-                  <div className="text-xl mt-20">
+                  <div className="text-xl mt-10">
                     {score >= 5 ? (
                       <div>
-                        Congrats {username} on completing the {category} quiz!!
+                        Congrats <b>{username} </b>on completing the <b>{category}</b> quiz!!
+                        <br />
                         <Link href={"./"}>
-                          <Button color="default" variant="solid" size="lg" onClick={reStart}>
+                          <Button color="primary" variant="solid" size="lg" className="mt-10" onClick={ReStart}>
                             Play again!
                           </Button>
                         </Link>
@@ -43,7 +47,7 @@ const Result_mobileUI = ({ result, username, category, showResult, score }) => {
                     ) : (
                       <div>
                         <Link href={"./"}>
-                          <Button color="default" variant="solid" size="lg" onClick={reStart}>
+                          <Button color="primary" variant="solid" size="lg" className="mt-10" onClick={ReStart}>
                             Try again!
                           </Button>
                         </Link>
@@ -57,7 +61,7 @@ const Result_mobileUI = ({ result, username, category, showResult, score }) => {
               <div className="mt-20 scale-95 ">
                 <div className="leaderboard rounded-md flex flex-col justify-center items-center ">
                   <h2 className="text-3xl font-bold mb-5 text-center mt-3">Leaderboard</h2>
-                  <table className="border-separate text-large p-5 text-center">
+                  <table className="border-separate border-spacing-x-1 text-large p-5 text-center ">
                     <thead>
                       <tr>
                         <th>Rank</th>
@@ -81,7 +85,7 @@ const Result_mobileUI = ({ result, username, category, showResult, score }) => {
 };
 
 const Result_lapUI = ({ result, username, category, setActive, showResult, score }) => {
-  const reStart = () => {
+  const ReStart = () => {
     setActive(false);
     showResult(false);
   };
@@ -100,7 +104,7 @@ const Result_lapUI = ({ result, username, category, setActive, showResult, score
                   <div className="text-3xl">
                     Congrats {username} on completing the {category} quiz!!
                     <Link href={"./"}>
-                      <Button color="default" variant="solid" size="lg" onClick={reStart}>
+                      <Button color="primary" variant="solid" size="lg" onClick={ReStart}>
                         Play again!
                       </Button>
                     </Link>
@@ -108,7 +112,7 @@ const Result_lapUI = ({ result, username, category, setActive, showResult, score
                 ) : (
                   <div className="text-3xl">
                     <Link href={"./"}>
-                      <Button color="default" variant="solid" size="lg" onClick={reStart}>
+                      <Button color="primary" variant="solid" size="lg" onClick={ReStart}>
                         Try again!
                       </Button>
                     </Link>
@@ -119,7 +123,7 @@ const Result_lapUI = ({ result, username, category, setActive, showResult, score
           </div>
 
           <div className="scale-95 p-6 row-start-3">
-            <div className="leaderboard flex justify-center items-center flex-col p-5">
+            <div className="leaderboard flex justify-center items-center flex-col p-6">
               <h2 className="text-3xl font-bold mb-5">Leaderboard</h2>
               <table className="border-separate border-spacing-x-5 text-2xl rounded-md w-max ">
                 <thead>

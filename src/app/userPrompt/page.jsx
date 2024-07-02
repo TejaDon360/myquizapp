@@ -4,6 +4,9 @@ import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useRouter } from "next/navigation";
 import Providers from "../../../components/themeProvider";
+
+import Logo from "../../../components/logo"
+
 export default function UserPrompt() {
   let router = useRouter();
   const { username, setName, category, setCat } = useContext(AppContext);
@@ -15,7 +18,7 @@ export default function UserPrompt() {
     <Providers>
       <div className="flex justify-center items-center h-screen mx-5">
         <div className="prompt  p-5 flex flex-col w-full max-w-96 rounded-md ">
-          <h1 className="text-2xl font-bold text-center mb-2">Quiz Up</h1>
+          <h1 className="text-2xl font-bold text-center mb-2"><Logo></Logo>QZap</h1>
           <p className="text-sm mb-2">Enter your username and select a category to begin.</p>
           <label htmlFor="username" className="my-1">
             Username

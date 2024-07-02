@@ -5,6 +5,7 @@
 [data-theme="light"] body {
   overflow: hidden;
   color: #282828;
+  font-family:  Geneva, sans-serif;
   background-color: #f0f0f0;
   --background: rgb(31, 31, 31);
   --primary: rgb(82, 148, 255);
@@ -15,6 +16,7 @@
 
 body {
   overflow: hidden;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   background-color: rgb(41, 41, 41);
   color: #fff;
   --background: rgb(31, 31, 31);
@@ -38,12 +40,13 @@ body {
 }
 
 .input {
+  outline-color: var(--primary);
   color: var(--color);
   background-color: var(--tertiary);
 }
 
 .start_quizBtn {
-  color: var(--color);
+  color: white;
   width: 100%;
   background-color: var(--primary);
 }
@@ -57,9 +60,7 @@ body {
 /* styling of quiz page  */
 .heading {
   font-size: 35px;
-
   font-weight: bold;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: var(--color);
   background-color: var(--secondary);
 }
@@ -96,4 +97,28 @@ body {
 
 .line {
   border-color: var(--color);
+}
+
+/* .logo{
+  background-image:url('../../public/Qz_dark.png');
+  width: 100px;
+  height: 100px;
+} */
+
+td {
+  border-right-width: 1px;
+  border-right-color: var(--color);
+  border-right-style: solid;
+}
+.themeBtn {
+  background: var(--tertiary);
+}
+.timer {
+  border: 2px;
+  border-style: solid;
+  border-color: var(--color);
+  background: var(--tertiary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
