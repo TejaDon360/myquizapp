@@ -4,19 +4,22 @@ import Providers from "../../../components/themeProvider";
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import { useWindowSize } from "../../../components/windowSize";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { supabase } from "../../../utils/supabase.mjs";
 import { useRouter } from "next/navigation";
+import { AppContext } from "/src/context/AppContext";
 
-const Result_mobileUI = ({ result, username, category, showResult, score }) => {
-  const ReStart = () => {
-    const router = useRouter();
-    router.push("/");
-    showResult(false);
-  };
+const random = (min, max) => Math.round(Math.random() * (max - min + 1) - min);
 
+const Result_mobileUI = ({ result, username, category, showResult, score, setScore }) => {
   const [selected, setSelected] = useState("photos");
-
+  const router = useRouter();
+  const ReStart = () => {
+    router.push("/");
+    router.refresh();
+    showResult(false);
+    setScore(0);
+  };
   return (
     <Providers>
       <div className={result ? "result  h-screen overflow-hidden" : "hidden"}>
@@ -38,19 +41,15 @@ const Result_mobileUI = ({ result, username, category, showResult, score }) => {
                       <div>
                         Congrats <b>{username} </b>on completing the <b>{category}</b> quiz!!
                         <br />
-                        <Link href={"./"}>
-                          <Button color="primary" variant="solid" size="lg" className="mt-10" onClick={ReStart}>
-                            Play again!
-                          </Button>
-                        </Link>
+                        <Button color="primary" variant="solid" size="lg" className="mt-10" onClick={() => ReStart()}>
+                          Play again!
+                        </Button>
                       </div>
                     ) : (
                       <div>
-                        <Link href={"./"}>
-                          <Button color="primary" variant="solid" size="lg" className="mt-10" onClick={ReStart}>
-                            Try again!
-                          </Button>
-                        </Link>
+                        <Button color="primary" variant="solid" size="lg" className="mt-10" onClick={() => ReStart()}>
+                          Try again!
+                        </Button>
                       </div>
                     )}
                   </div>
@@ -84,12 +83,14 @@ const Result_mobileUI = ({ result, username, category, showResult, score }) => {
   );
 };
 
-const Result_lapUI = ({ result, username, category, setActive, showResult, score }) => {
+const Result_lapUI = ({ result, username, category, setActive, showResult, score, setScore }) => {
+  const router = useRouter();
   const ReStart = () => {
-    setActive(false);
+    router.push("/");
+    router.refresh();
     showResult(false);
+    setScore(0);
   };
-
   return (
     <Providers>
       <div className={result ? "result  h-screen overflow-hidden" : "hidden"}>
@@ -103,19 +104,15 @@ const Result_lapUI = ({ result, username, category, setActive, showResult, score
                 {score >= 5 ? (
                   <div className="text-3xl">
                     Congrats {username} on completing the {category} quiz!!
-                    <Link href={"./"}>
-                      <Button color="primary" variant="solid" size="lg" onClick={ReStart}>
-                        Play again!
-                      </Button>
-                    </Link>
+                    <Button color="primary" variant="solid" size="lg" onClick={() => ReStart}>
+                      Play again!
+                    </Button>
                   </div>
                 ) : (
                   <div className="text-3xl">
-                    <Link href={"./"}>
-                      <Button color="primary" variant="solid" size="lg" onClick={ReStart}>
-                        Try again!
-                      </Button>
-                    </Link>
+                    <Button color="primary" variant="solid" size="lg" onClick={() => ReStart}>
+                      Try again!
+                    </Button>
                   </div>
                 )}
               </div>
@@ -146,10 +143,11 @@ const Result_lapUI = ({ result, username, category, setActive, showResult, score
   );
 };
 
-const Result = ({ result, username, category, setActive, showResult, score }) => {
+const Result = ({ result, username, category, setActive, showResult }) => {
   let size = useWindowSize();
+  let { score, setScore } = useContext(AppContext);
+
   useEffect(() => {
-    const random = (min, max) => Math.round((max - min) * Math.random() + min);
     async function submitUser() {
       const { error } = await supabase.from("Users").insert({
         id: random(10, 10000),
@@ -160,7 +158,7 @@ const Result = ({ result, username, category, setActive, showResult, score }) =>
     return () => {
       submitUser();
     };
-  }, [username, category, score]);
+  }, [username, category, score, setScore]);
 
   return (
     <>
@@ -172,6 +170,7 @@ const Result = ({ result, username, category, setActive, showResult, score }) =>
             category={category}
             setActive={setActive}
             showResult={showResult}
+            setScore={setScore}
             score={score}
           />
         </>
@@ -181,6 +180,7 @@ const Result = ({ result, username, category, setActive, showResult, score }) =>
           username={username}
           category={category}
           setActive={setActive}
+          setScore={setScore}
           showResult={showResult}
           score={score}
         />

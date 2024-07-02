@@ -24,11 +24,13 @@ export default function QuiArea() {
   const router = useRouter();
   let timer = 5;
   const [time, setTime] = useState(timer);
+  const [timerOn, setTimer] = useState(true);
 
   useEffect(() => {
-    if (time <= 0) return;
+    //Timer timer
+    if (!time) return;
     const timeInterval = setInterval(() => {
-      if (time > 0) {
+      if (time > 0 && timerOn) {
         setTime(time - 1);
       }
     }, 1000);
@@ -36,7 +38,7 @@ export default function QuiArea() {
     return () => {
       clearInterval(timeInterval);
     };
-  }, [time]);
+  }, [time, timerOn]);
 
   if (username == " " || username == false) {
     router.push("/");
@@ -54,8 +56,8 @@ export default function QuiArea() {
 
       //submitUser();
     }
-    showResult(true);
-    setTime(-10);
+    //setTimer(false);
+    return showResult(true);
   };
 
   const checkAnswer = () => {
@@ -71,15 +73,20 @@ export default function QuiArea() {
     setTime(timer);
   };
 
-  if (time == 0) {
-    if (index == 9) {
-      setTime(-10);
-    //  submitQuiz();
-      setIndex(0);
+  //Auto timer end clicker
+  function checkTime() {
+    if (time == 0) {
+      if (index == 9) {
+        // setIndex(-1);
+        // if(answer == questions[index].answer) setScore(score+1)
+        // return showResult(true);
+        
+      } else {
+        return checkAnswer();
+      }
     }
-    checkAnswer();
   }
-
+  checkTime();
   return (
     <>
       <>
