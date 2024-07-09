@@ -122,3 +122,24 @@ td {
   justify-content: center;
   align-items: center;
 }
+
+
+
+/*Styling for home page*/
+
+.nav_top{
+  background-color: var(--secondary);
+}
+
+.main_quiz_examples{
+  
+  background-color: var(--accent);
+
+}
+.main_quiz_examples>h3{
+  font-size: large;
+}
+
+.main_quiz_examples>p{
+  font-size: small;
+}

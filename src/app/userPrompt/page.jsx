@@ -17,9 +17,10 @@ export default function UserPrompt() {
   return (
     <Providers>
       <div className="flex justify-center items-center h-screen mx-5">
+     
         <div className="prompt  p-5 flex flex-col w-full max-w-96 rounded-md ">
-          <h1 className="text-2xl font-bold text-center mb-2"><Logo></Logo>QZap</h1>
-          <p className="text-sm mb-2">Enter your username and select a category to begin.</p>
+          <h1 className="text-2xl font-bold text-center mb-2"><Logo></Logo>Qzap</h1>
+          <p className="text-sm mb-2 text-center">Enter your username and select a category to begin.</p>
           <label htmlFor="username" className="my-1">
             Username
           </label>
@@ -53,6 +54,7 @@ export default function UserPrompt() {
           >
             Start Quiz
           </button>
+          <p className="mt-2 opacity-75 text-sm text-right">Provide username to start the quiz or signup?</p>
         </div>
       </div>
     </Providers>
