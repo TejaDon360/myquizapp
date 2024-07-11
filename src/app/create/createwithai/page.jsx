@@ -12,7 +12,6 @@ export default function CreateWithAi() {
       setData(data);
     } catch (err) {}
   };
-  
 
   return (
     <>
@@ -26,11 +25,11 @@ export default function CreateWithAi() {
             onInput={(e) => setQuery(e.target.value)}
           ></input>
           {query.length >= 8 ? (
-            <Button variant="solid" color="primary" onClick={() => fetchData()}>
+            <Button variant="solid" color="primary" className="rounded-md" onClick={() => fetchData()}>
               Create
             </Button>
           ) : (
-            <Button variant="solid" color="default">
+            <Button variant="solid" color="default" className="rounded-md">
               Create
             </Button>
           )}

@@ -17,7 +17,7 @@ export default function Home() {
       {size.width < 750 ? 
       <div className="grid grid-cols-1 gap-4 h-screen grid-rows-10 p-3">
         <div className="nav_top rounded-md row-span-1 row-start-1 ">
-          <div className="grid grid-cols-2 items-center h-full mx-2">
+          <div className="grid grid-cols-2 items-center h-full mx-5">
             <div className="justify-self-start text-3xl font-bold">Qzap</div>
             <div className="flex flex-row justify-self-end">
               <ThemeSwitcher />
