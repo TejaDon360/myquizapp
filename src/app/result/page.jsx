@@ -23,7 +23,7 @@ const Result_mobileUI = ({ result, username, category, showResult, score, setSco
   return (
     <Providers>
       <div className={result ? "result  h-screen overflow-hidden" : "hidden"}>
-        <h1 className="heading p-1 scale-95">Qzap</h1>
+        <h1 className="heading p-1 scale-95 rounded-md mt-5">Qzap</h1>
         <div className="grid w-full">
           <Tabs
             variant="underlined"
@@ -94,23 +94,25 @@ const Result_lapUI = ({ result, username, category, setActive, showResult, score
   return (
     <Providers>
       <div className={result ? "result  h-screen overflow-hidden" : "hidden"}>
-        <div className="grid w-screen grid-cols-2 grid-rows-10  gap-1 h-screen place-content-center">
-          <h1 className="heading p-1 scale-95 row-start-1 col-span-2 max-h-20 row-span-1">Qzap</h1>
+        <div className="grid w-screen grid-cols-2 grid-rows-10 h-screen place-content-center ">
+          <h1 className="heading scale-95 row-start-1 col-span-2 max-h-20 row-span-1 rounded-md mt-5 p-1">Qzap</h1>
           <div className="scale-95 p-5 row-start-3">
             <div className="details text-center p-12 rounded-md">
               <h1 className="text-4xl font-medium mb-10">Your score</h1>
               <div className="text-4xl">{score}/10</div>
+           
               <div className="text-xl mt-20">
                 {score >= 5 ? (
                   <div className="text-3xl">
                     Congrats {username} on completing the {category} quiz!!
-                    <Button color="primary" variant="solid" size="lg" onClick={() => ReStart}>
+                    
+                    <Button color="primary" variant="solid" size="lg" onClick={() => ReStart} className="mt-10">
                       Play again!
                     </Button>
                   </div>
                 ) : (
                   <div className="text-3xl">
-                    <Button color="primary" variant="solid" size="lg" onClick={() => ReStart}>
+                    <Button color="primary" variant="solid" size="lg" onClick={() => ReStart} className="mt-10">
                       Try again!
                     </Button>
                   </div>

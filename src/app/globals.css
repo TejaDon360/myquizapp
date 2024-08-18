@@ -5,7 +5,7 @@
 [data-theme="light"] body {
   overflow: hidden;
   color: #282828;
-  font-family:  Geneva, sans-serif;
+  font-family: Geneva, sans-serif;
   background-color: #f0f0f0;
   --background: rgb(31, 31, 31);
   --primary: rgb(82, 148, 255);
@@ -123,23 +123,31 @@ td {
   align-items: center;
 }
 
-
-
 /*Styling for home page*/
 
-.nav_top{
+.nav_top {
   background-color: var(--secondary);
 }
 
-.main_quiz_examples{
-  
+.main_quiz_examples {
   background-color: var(--accent);
-
 }
-.main_quiz_examples>h3{
+.main_quiz_examples > h3 {
   font-size: large;
 }
 
-.main_quiz_examples>p{
+.main_quiz_examples > p {
   font-size: small;
+}
+
+.nav_side,
+.explore_quiz {
+  background-color: var(--secondary);
+}
+
+.explore_quiz>div{
+  background-color: var(--tertiary);
+}
+.nav_bottom{
+  background-color: var(--secondary);
 }
